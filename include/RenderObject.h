@@ -3,22 +3,14 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-class RenderObject : public sf::Drawable {
-private:
-    sf::RectangleShape shape;
+class RenderObject : public sf::Drawable, public sf::Transformable {
+protected:
     std::string name;
-
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
     
 public:
-    RenderObject(sf::Vector2f size = {64.f, 40.f}, sf::Color color = sf::Color::White);
-
     std::string getName() const;
     void setName(const std::string& objectName);
-    void setPosition(sf::Vector2f position);
-    void setRotation(sf::Angle rotation);
-    void setSize(sf::Vector2f size);
-    void setFillColor(sf::Color color);
-
+    virtual void update();
     friend std::ostream& operator<<(std::ostream& os, const RenderObject& obj);
 };

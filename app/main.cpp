@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <RenderHandler.h>
+#include <RectangleRenderObject.h>
 #include <cstdlib>
 #include <iostream>
 #include <thread>
@@ -12,12 +13,12 @@ int main()
     RenderHandler renderHandler(window);
     renderHandler.changeWindowName("Geometry Dash");
     renderHandler.setResolution(800, 600);
-    renderHandler.consoleWrite("salut");
 
     const sf::Vector2f rectangleSize{64.f, 40.f};
-    RenderObject rectangle(rectangleSize, sf::Color::Green);
+    RectangleRenderObject rectangle(rectangleSize, sf::Color::Green);
     const auto windowSize = window.getSize();
     rectangle.setPosition({25.f, static_cast<float>(windowSize.y) - rectangleSize.y - 25.f});
+    
     renderHandler.addObjectsToRender(rectangle);
 
     auto lastUpdate = std::chrono::steady_clock::now();

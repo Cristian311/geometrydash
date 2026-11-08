@@ -7,13 +7,14 @@ RenderHandler::RenderHandler(sf::RenderWindow& renderWindow) : window(&renderWin
 
 }
 
-void RenderHandler::addObjectsToRender(const RenderObject& object){
-    renderObjects.push_back(object);
+void RenderHandler::addObjectsToRender(RenderObject& object){
+    renderObjects.push_back(&object);
 }
 
 void RenderHandler::update(){
-    for(const auto& object : renderObjects){
-        window->draw(object);
+    for(auto* object : renderObjects){
+        window->draw(*object);
+        object->update();
     }
 }
 
@@ -37,8 +38,8 @@ std::ostream& operator<<(std::ostream& os, const RenderHandler& obj){
     os << "RenderHandler deseneaza " <<  std::to_string(obj.renderObjects.size()) << " obiecte \n";
     sf::Vector2u window_size = obj.window->getSize();
     os << "Marime fereastra X: " << window_size.x << " Y: " << window_size.y;
-    os << "\n Obiecte: \n";
-    for(const auto& object : obj.renderObjects)
-        os << object;
+    os << "\nObiecte: \n";
+    for(const auto* object : obj.renderObjects)
+        os << *object;
     return os;
 }

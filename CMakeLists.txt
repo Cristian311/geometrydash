@@ -72,7 +72,9 @@ target_sources(${MAIN_LIBRARY_NAME}
         src/RenderHandler.cpp
         src/internal/Detail.cpp
         src/RenderObject.cpp
+        src/RectangleRenderObject.cpp
         include/RenderObject.h
+        include/RectangleRenderObject.h
         include/RenderHandler.h
 )
 
