@@ -1,5 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include <RenderHandler.h>
+#include <cstdlib>
+#include <iostream>
+#include <thread>
+#include <chrono>
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode({800, 600}), "My window");
@@ -8,6 +13,14 @@ int main()
     renderHandler.changeWindowName("Geometry Dash");
     renderHandler.setResolution(800, 600);
     renderHandler.consoleWrite("salut");
+
+    const sf::Vector2f rectangleSize{64.f, 40.f};
+    RenderObject rectangle(rectangleSize, sf::Color::Green);
+    const auto windowSize = window.getSize();
+    rectangle.setPosition({25.f, static_cast<float>(windowSize.y) - rectangleSize.y - 25.f});
+    renderHandler.addObjectsToRender(rectangle);
+
+    auto lastUpdate = std::chrono::steady_clock::now();
 
     while (window.isOpen())
     { 
@@ -19,6 +32,16 @@ int main()
 
         window.clear(sf::Color::Black);
 
+        auto now = std::chrono::steady_clock::now();
+
+        if (now - lastUpdate >= std::chrono::milliseconds(500))
+        {
+            system("cls");
+            std::cout<<renderHandler;
+
+            lastUpdate = now;
+        }
+        
         renderHandler.update();
         
         window.display();

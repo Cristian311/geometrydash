@@ -7,18 +7,18 @@ RenderHandler::RenderHandler(sf::RenderWindow& renderWindow) : window(&renderWin
 
 }
 
-void RenderHandler::addObjectsToRender(const sf::Drawable& object){
+void RenderHandler::addObjectsToRender(const RenderObject& object){
     renderObjects.push_back(object);
-    consoleWrite
 }
+
 void RenderHandler::update(){
-    for(auto object : renderObjects){
+    for(const auto& object : renderObjects){
         window->draw(object);
     }
 }
 
 void RenderHandler::setResolution(const int x, const int y){
-    sf::Vector2u size(static_cast<unsigned int>(x), static_cast<unsigned int>(y))
+    sf::Vector2u size(static_cast<unsigned int>(x), static_cast<unsigned int>(y));
     this->window->setSize(size);
 
     consoleWrite("Set new Resolution X: " + std::to_string(size.x) +" Y: " + std::to_string(size.y));
@@ -31,4 +31,14 @@ void RenderHandler::changeWindowName(const std::string& name){
 
 void RenderHandler::consoleWrite(std::string message){
     std::cout<<message<<std::endl;
+}
+
+std::ostream& operator<<(std::ostream& os, const RenderHandler& obj){
+    os << "RenderHandler deseneaza " <<  std::to_string(obj.renderObjects.size()) << " obiecte \n";
+    sf::Vector2u window_size = obj.window->getSize();
+    os << "Marime fereastra X: " << window_size.x << " Y: " << window_size.y;
+    os << "\n Obiecte: \n";
+    for(const auto& object : obj.renderObjects)
+        os << object;
+    return os;
 }
