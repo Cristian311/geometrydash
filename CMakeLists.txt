@@ -69,7 +69,11 @@ add_executable(${MAIN_EXECUTABLE_NAME}
 target_sources(${MAIN_LIBRARY_NAME}
     PRIVATE
         src/Example.cpp
+        src/RenderHandler.cpp
         src/internal/Detail.cpp
+        src/RenderObject.cpp
+        include/RenderObject.h
+        include/RenderHandler.h
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
@@ -106,6 +110,7 @@ target_include_directories(${MAIN_LIBRARY_NAME} SYSTEM PRIVATE
 
 target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE ${MAIN_LIBRARY_NAME})
 target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE SFML::Graphics)
+target_link_libraries(${MAIN_LIBRARY_NAME} PUBLIC SFML::Graphics)
 
 # target_link_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${<SomeLib>_BINARY_DIR}/lib)
 # target_link_libraries(${MAIN_EXECUTABLE_NAME} <SomeLib>)
