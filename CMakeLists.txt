@@ -73,9 +73,11 @@ target_sources(${MAIN_LIBRARY_NAME}
         src/internal/Detail.cpp
         src/RenderObject.cpp
         src/RectangleRenderObject.cpp
+        src/SpriteRenderObject.cpp
         include/RenderObject.h
         include/RectangleRenderObject.h
         include/RenderHandler.h
+        include/SpriteRenderObject.h
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
