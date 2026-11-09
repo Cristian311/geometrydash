@@ -6,6 +6,7 @@
 class RenderObject : public sf::Drawable, public sf::Transformable {
 protected:
     std::string name;
+    int id;
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
     
 public:

@@ -13,8 +13,8 @@ void RenderHandler::addObjectsToRender(RenderObject& object){
 
 void RenderHandler::update(){
     for(auto* object : renderObjects){
-        window->draw(*object);
         object->update();
+        window->draw(*object);
     }
 }
 
