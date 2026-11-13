@@ -29,31 +29,23 @@ include(cmake/RegisterTests.cmake)
 
 # External dependencies with FetchContent
 
-# include(FetchContent)
-#
-# set(FETCHCONTENT_QUIET OFF CACHE INTERNAL "Override verbose output" FORCE)
-# set(FETCHCONTENT_UPDATES_DISCONNECTED ON CACHE INTERNAL "Override update strategy" FORCE)
-#
-# NOTE: Also update env vars used for caching in
-#     - .github/actions/configure-cmake/action.yml
-#     - .github/workflows/cmake.yml
-# FetchContent_Declare(
-#     SomeLib
-#     SYSTEM         # keeps ext libs out of static code analysis
-#     GIT_REPOSITORY https://github.com/<SomeUser>/<SomeLib>.git
-#     GIT_TAG        <some_git_hash> # <which tag/branch @ <some_date>>
-#     GIT_SHALLOW    1  # works only with branches or tags, not with arbitrary commit hashes
-#     GIT_PROGRESS   ON
-# )
-#
-# FetchContent_MakeAvailable(SomeLib)
+include(FetchContent)
+
+set(SFML_BUILD_AUDIO OFF CACHE BOOL "Build SFML audio module" FORCE)
+set(SFML_BUILD_NETWORK OFF CACHE BOOL "Build SFML network module" FORCE)
+
+FetchContent_Declare(
+    SFML
+    SYSTEM
+    GIT_REPOSITORY https://github.com/SFML/SFML.git
+    GIT_TAG        3.1.0
+    GIT_SHALLOW    TRUE
+    GIT_PROGRESS   TRUE
+)
+
+FetchContent_MakeAvailable(SFML)
 
 ###############################################################################
-
-# External dependencies with find_package
-
-# find_package(Threads REQUIRED)
-find_package(SFML 3 COMPONENTS Graphics REQUIRED)
 
 ###############################################################################
 
@@ -66,19 +58,16 @@ add_library(${MAIN_LIBRARY_NAME} STATIC)
 add_executable(${MAIN_EXECUTABLE_NAME}
     app/main.cpp
 )
-target_sources(${MAIN_LIBRARY_NAME}
-    PRIVATE
-        src/Example.cpp
-        src/RenderHandler.cpp
-        src/internal/Detail.cpp
-        src/RenderObject.cpp
-        src/RectangleRenderObject.cpp
-        src/SpriteRenderObject.cpp
-        include/RenderObject.h
-        include/RectangleRenderObject.h
-        include/RenderHandler.h
-        include/SpriteRenderObject.h
+file(GLOB_RECURSE MAIN_LIBRARY_SOURCES
+    CONFIGURE_DEPENDS
+    LIST_DIRECTORIES FALSE
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp"
 )
+target_sources(${MAIN_LIBRARY_NAME} PRIVATE ${MAIN_LIBRARY_SOURCES})
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
 # NOTE: RUN_SANITIZERS is optional, if it's not present it will default to true
