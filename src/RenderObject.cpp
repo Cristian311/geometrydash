@@ -20,6 +20,6 @@ std::ostream& operator<<(std::ostream& os, const RenderObject& obj) {
        << "Pozitie: (X: " << position.x << ", Y: " << position.y << "), "
        << "Rotatie: (Degrees: " << rotation.asDegrees()
        << " Radians: " << rotation.asRadians() << ")"
-       << "]";
+       << "]\n";
     return os;
 }
