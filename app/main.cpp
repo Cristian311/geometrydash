@@ -45,7 +45,7 @@ int main()
 
     //test sprite
     sf::Texture texture;
-    if (!texture.loadFromFile("../../../../textures/icons/cube_6.png")) {
+    if (!texture.loadFromFile("textures/icons/cube_6.png")) {
         std::cerr << "Nu am putut incarca textura\n";
         return 1;
     }

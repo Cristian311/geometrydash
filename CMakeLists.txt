@@ -45,6 +45,12 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(SFML)
 
+if(MSVC AND USE_ASAN)
+    foreach(SFML_TARGET IN ITEMS sfml-system sfml-window sfml-graphics)
+        target_compile_options(${SFML_TARGET} PRIVATE "$<${debug_mode}:/fsanitize=address>")
+    endforeach()
+endif()
+
 ###############################################################################
 
 ###############################################################################
@@ -105,6 +111,12 @@ target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE ${MAIN_LIBRARY_NAME})
 target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE SFML::Graphics)
 target_link_libraries(${MAIN_LIBRARY_NAME} PUBLIC SFML::Graphics)
 
+if(APPLE)
+    set_target_properties(${MAIN_EXECUTABLE_NAME} PROPERTIES
+        INSTALL_RPATH "@executable_path/lib"
+    )
+endif()
+
 # target_link_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${<SomeLib>_BINARY_DIR}/lib)
 # target_link_libraries(${MAIN_EXECUTABLE_NAME} <SomeLib>)
 
@@ -124,7 +136,7 @@ if(APPLE)
     install(FILES ${CMAKE_SOURCE_DIR}/launcher.command DESTINATION ${DESTINATION_DIR})
 endif()
 
-copy_files(FILES tastatura.txt DIRECTORY assets COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
+copy_files(FILES tastatura.txt DIRECTORY assets textures COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
 # copy_files(FILES tastatura.txt config.json DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
 # copy_files(DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
 
