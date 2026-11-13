@@ -1,40 +1,9 @@
-# Nu primesc notă pentru că nu am pus titlu și descriere
-
-### Folosiți template-ul corespunzător grupei voastre!
-
-| Laborant  | Link template                                |
-|-----------|----------------------------------------------|
-| Dragoș B  | https://github.com/Ionnier/oop-template      |
-| Tiberiu M | https://github.com/MaximTiberiu/oop-template |
-| Marius MC | https://github.com/mcmarius/oop-template     |
-
-### Important!
-
-Aveți voie cu agenți care generează cod doar dacă păstrați AGENTS.md și de `.internal/` *pe toată durata semestrului*.
-Știm că se poate trișa foarte ușor. Ideea nu este să învățați să trișați mai bine, ci să înțelegeți ce faceți.
-Codul generat pus "ca să fie"/pe care nu îl înțelegeți nu se punctează.
-
-Codul din proiect trebuie să poată fi ușor de înțeles și de modificat de către altcineva. Pentru detalii, veniți la ore.
-
-O cerință nu se consideră îndeplinită dacă este realizată doar prin cod generat.
-
-- **Fără cod de umplutură/fără sens!**
-- **Fără copy-paste!**
-- **Fără variabile globale!**
-- **Fără atribute publice!**
-- **Fără date în cod!** Datele vor fi citite din fișier, rețea sau bază de date, aveți exemple destule.
-- **Obligatoriu** fișiere cu date mai multe din care să citiți, obligatoriu cu biblioteci externe: fișiere (local sau server) sau baze de date
-- obligatoriu (TBD) să integrați cel puțin două biblioteci externe pe lângă cele pentru stocare
-
-**NOU!** Livrabile pentru toate temele:
-- aplicație
-- bibliotecă
-- interfața publică pentru bibliotecă
-
+# Geometry Dash - proiect facultate limbajul C++
+Proiect realizat în cadrul facultății, folosind limbajul C++ și biblioteca grafică SFML, inspirat din jocul Geometry Dash. Scopul proiectului este recrearea mecanicilor de bază ale jocului original, incluzând controlul personajului, obstacole și un mediu de joc cu derulare laterală.
 ### Tema 0
 
-- [ ] Nume proiect (poate fi schimbat ulterior)
-- [ ] Scurtă descriere a temei alese, ce v-ați propus să implementați
+- [x] Nume proiect (poate fi schimbat ulterior)
+- [x] Scurtă descriere a temei alese, ce v-ați propus să implementați
 
 ## Tema 1
 
@@ -60,7 +29,7 @@ O cerință nu se consideră îndeplinită dacă este realizată doar prin cod g
 ## Tema 2
 
 #### Cerințe
-- [ ] separarea codului din clase în `.h` (sau `.hpp`) și `.cpp`
+- [x] separarea codului din clase în `.h` (sau `.hpp`) și `.cpp`
 - [ ] moșteniri:
   - minim o clasă de bază și **3 clase derivate** din aceeași ierarhie; cele 3 derivate moștenesc aceeași clasă de bază
   - ierarhia trebuie să fie cu bază proprie, nu derivată dintr-o clasă predefinită
@@ -79,7 +48,7 @@ O cerință nu se consideră îndeplinită dacă este realizată doar prin cod g
   - [ ] utilizare cu sens: de exemplu, `throw` în constructor (sau funcție care întoarce un obiect), `try`/`catch` în `main`
   - această ierarhie va fi complet independentă de ierarhia cu funcții virtuale
 - [ ] funcții și atribute `static`
-- [ ] STL
+- [x] STL
 - [ ] cât mai multe `const`
 - [ ] funcții *de nivel înalt*, de eliminat cât mai mulți getters/setters/funcții low-level
 - [ ] minim 75-78% din codul propriu să fie C++; testele nu se pun
