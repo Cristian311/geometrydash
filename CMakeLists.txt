@@ -9,6 +9,9 @@ set(TESTS_EXECUTABLE_NAME "${MAIN_PROJECT_NAME}_test")
 
 
 project(${MAIN_PROJECT_NAME})
+if(APPLE)
+    set(CMAKE_INSTALL_RPATH "@executable_path/lib")
+endif()
 # set(CMAKE_PROJECT_VERSION_MAJOR 0)
 # set(CMAKE_PROJECT_VERSION_MINOR 0)
 # set(CMAKE_PROJECT_VERSION_PATCH 1)
@@ -110,12 +113,6 @@ target_include_directories(${MAIN_LIBRARY_NAME} SYSTEM PRIVATE
 target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE ${MAIN_LIBRARY_NAME})
 target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE SFML::Graphics)
 target_link_libraries(${MAIN_LIBRARY_NAME} PUBLIC SFML::Graphics)
-
-if(APPLE)
-    set_target_properties(${MAIN_EXECUTABLE_NAME} PROPERTIES
-        INSTALL_RPATH "@executable_path/lib"
-    )
-endif()
 
 # target_link_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${<SomeLib>_BINARY_DIR}/lib)
 # target_link_libraries(${MAIN_EXECUTABLE_NAME} <SomeLib>)
