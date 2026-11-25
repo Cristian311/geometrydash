@@ -1,6 +1,6 @@
 #include "RenderObject.h"
 
-std::string RenderObject::getName() const {
+const std::string& RenderObject::getName() const {
     return name;
 }
 
