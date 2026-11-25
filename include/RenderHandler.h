@@ -16,6 +16,6 @@ class RenderHandler {
     void changeWindowName(const std::string& name);
     void addObjectsToRender(RenderObject& object);
     void update();
-    static void consoleWrite(std::string message);
+    static void consoleWrite(const std::string& message);
     friend std::ostream& operator<<(std::ostream& os, const RenderHandler& obj);
 };

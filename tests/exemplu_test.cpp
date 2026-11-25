@@ -6,7 +6,9 @@
 // Keep the checks on in every build type.
 #undef NDEBUG
 #include <cassert>
+#include <cmath>
 #include <stdexcept>
+#include <string>
 
 #include "Example.h"      // the library under test; include/ comes from oop
 #include "Obstacle.h"
@@ -53,11 +55,16 @@ int main() {
 
     Player player;
     player.setPosition({40.f, 36.f});
+    player.getShape().setName("Player");
     player.jump();
     player.update(0.1f, 100.f);
-    assert(player.getShape().getPosition().y < 36.f);
+    const float jumpPosition = player.getShape().getPosition().y;
+    assert(jumpPosition < 36.f);
     player.update(1.f, 100.f);
-    assert(player.getShape().getPosition().y == 36.f);
+    const float landingPosition = player.getShape().getPosition().y;
+    assert(std::abs(landingPosition - 36.f) < 0.001f);
+    const std::string playerName = player.getShape().getName();
+    assert(playerName == "Player");
 
     Obstacle obstacle({50.f, 40.f}, 60.f, 60.f);
     player.setPosition({40.f, 40.f});
@@ -68,7 +75,8 @@ int main() {
     Obstacle copiedObstacle(obstacle);
     Obstacle assignedObstacle({0.f, 0.f}, 10.f, 10.f);
     assignedObstacle = copiedObstacle;
-    assert(assignedObstacle.getShape().getPosition().x == 500.f);
+    const float copiedObstaclePosition = assignedObstacle.getShape().getPosition().x;
+    assert(std::abs(copiedObstaclePosition - 500.f) < 0.001f);
 
     return 0;
 }

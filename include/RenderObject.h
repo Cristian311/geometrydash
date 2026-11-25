@@ -10,7 +10,7 @@ protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
     
 public:
-    std::string getName() const;
+    const std::string& getName() const;
     void setName(const std::string& objectName);
     virtual void update();
     friend std::ostream& operator<<(std::ostream& os, const RenderObject& obj);

@@ -30,7 +30,7 @@ void RenderHandler::changeWindowName(const std::string& name){
     consoleWrite("Set new window name: " + name);
 }
 
-void RenderHandler::consoleWrite(std::string message){
+void RenderHandler::consoleWrite(const std::string& message){
     std::cout<<message<<std::endl;
 }
 
