@@ -7,6 +7,7 @@
 #undef NDEBUG
 #include <cassert>
 #include <cmath>
+#include <iostream>
 #include <stdexcept>
 #include <string>
 
@@ -19,6 +20,7 @@ static_assert(Example::limit > 0, "the invariant below assumes a positive limit"
 // checked through the public interface only: the helper behind the invariant is
 // file-local in src/Example.cpp and cannot even be named here
 int main() {
+    std::cerr << "Example tests\n";
     Example e;
     assert(e.value() == 0);
 
@@ -53,6 +55,7 @@ int main() {
     }
     assert(threw && "the constructor must not hand out a broken object either");
 
+    std::cerr << "Player jump tests\n";
     Player player;
     player.setPosition({40.f, 36.f});
     player.getShape().setName("Player");
@@ -66,17 +69,20 @@ int main() {
     const std::string playerName = player.getShape().getName();
     assert(playerName == "Player");
 
+    std::cerr << "Collision tests\n";
     Obstacle obstacle({50.f, 40.f}, 60.f, 60.f);
     player.setPosition({40.f, 40.f});
     assert(player.collidesWith(obstacle));
     obstacle.getShape().setPosition({500.f, 40.f});
     assert(!player.collidesWith(obstacle));
 
+    std::cerr << "Obstacle copy tests\n";
     Obstacle copiedObstacle(obstacle);
     Obstacle assignedObstacle({0.f, 0.f}, 10.f, 10.f);
     assignedObstacle = copiedObstacle;
     const float copiedObstaclePosition = assignedObstacle.getShape().getPosition().x;
     assert(std::abs(copiedObstaclePosition - 500.f) < 0.001f);
 
+    std::cerr << "Tests complete\n";
     return 0;
 }
