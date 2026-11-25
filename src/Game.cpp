@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <ostream>
 
 const float groundMargin = 25.f;
 const float playerHeight = 64.f;
@@ -38,6 +39,10 @@ void Game::handleEvents() {
         if (event->is<sf::Event::Closed>()) {
             window.close();
         }
+        if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>();
+            keyPressed && keyPressed->code == sf::Keyboard::Key::Space) {
+            player.jump();
+        }
     }
 }
 
@@ -46,13 +51,27 @@ void Game::update() {
     const float deltaSeconds = clock.restart().asSeconds();
     const float groundY = static_cast<float>(windowSize.y) - groundMargin;
 
+    player.update(deltaSeconds, groundY);
+
     for (Obstacle& obstacle : obstacles) {
         obstacle.update(
             deltaSeconds,
             static_cast<float>(windowSize.x),
             groundY
         );
+        if (player.collidesWith(obstacle)) {
+            reset();
+            break;
+        }
     }
+}
+
+void Game::reset() {
+    player.reset();
+    for (Obstacle& obstacle : obstacles) {
+        obstacle.reset();
+    }
+    clock.restart();
 }
 
 void Game::render() {
@@ -67,4 +86,14 @@ void Game::run() {
         update();
         render();
     }
+}
+
+std::ostream& operator<<(std::ostream& os, const Game& game) {
+    os << "Game{\n"
+       << game.player << "\n";
+    for (const Obstacle& obstacle : game.obstacles) {
+        os << obstacle << "\n";
+    }
+    os << game.renderer << "}";
+    return os;
 }

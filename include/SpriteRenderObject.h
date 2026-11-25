@@ -1,3 +1,4 @@
+#include <ostream>
 #include <SFML/Graphics.hpp>
 #include <RenderObject.h>
 
@@ -9,4 +10,5 @@ private:
 
 public:
     SpriteRenderObject(const sf::Texture& texture, sf::IntRect intRect);
+    friend std::ostream& operator<<(std::ostream& os, const SpriteRenderObject& object);
 };

@@ -9,6 +9,8 @@
 #include <stdexcept>
 
 #include "Example.h"      // the library under test; include/ comes from oop
+#include "Obstacle.h"
+#include "Player.h"
 
 static_assert(Example::limit > 0, "the invariant below assumes a positive limit");
 
@@ -48,6 +50,25 @@ int main() {
         threw = true;
     }
     assert(threw && "the constructor must not hand out a broken object either");
+
+    Player player;
+    player.setPosition({40.f, 36.f});
+    player.jump();
+    player.update(0.1f, 100.f);
+    assert(player.getShape().getPosition().y < 36.f);
+    player.update(1.f, 100.f);
+    assert(player.getShape().getPosition().y == 36.f);
+
+    Obstacle obstacle({50.f, 40.f}, 60.f, 60.f);
+    player.setPosition({40.f, 40.f});
+    assert(player.collidesWith(obstacle));
+    obstacle.getShape().setPosition({500.f, 40.f});
+    assert(!player.collidesWith(obstacle));
+
+    Obstacle copiedObstacle(obstacle);
+    Obstacle assignedObstacle({0.f, 0.f}, 10.f, 10.f);
+    assignedObstacle = copiedObstacle;
+    assert(assignedObstacle.getShape().getPosition().x == 500.f);
 
     return 0;
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ostream>
 #include <SFML/Graphics.hpp>
 #include <RenderHandler.h>
 #include <Player.h>
@@ -17,8 +18,10 @@ private:
     void handleEvents();
     void update();
     void render();
+    void reset();
 
 public:
     explicit Game(sf::RenderWindow& renderWindow);
     void run();
+    friend std::ostream& operator<<(std::ostream& os, const Game& game);
 };

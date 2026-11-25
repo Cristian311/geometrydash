@@ -1,4 +1,5 @@
 #include "Obstacle.h"
+#include <ostream>
 
 Obstacle::Obstacle(sf::Vector2f position, float width, float height)
     : shape(
@@ -10,7 +11,8 @@ Obstacle::Obstacle(sf::Vector2f position, float width, float height)
         }
     ),
       width(width),
-      height(height) {
+    height(height),
+    initialPosition(position) {
     shape.setPosition(position);
 }
 
@@ -23,10 +25,25 @@ void Obstacle::update(float deltaSeconds, float windowWidth, float groundY) {
     }
 }
 
+void Obstacle::reset() {
+    shape.setPosition(initialPosition);
+}
+
+sf::FloatRect Obstacle::getBounds() const {
+    return {shape.getPosition(), {width, height}};
+}
+
 VertexArrayRenderObject& Obstacle::getShape() {
     return shape;
 }
 
 const VertexArrayRenderObject& Obstacle::getShape() const {
     return shape;
+}
+
+std::ostream& operator<<(std::ostream& os, const Obstacle& obstacle) {
+    os << "Obstacle{"
+       << obstacle.shape
+       << "size: " << obstacle.width << " x " << obstacle.height << "}";
+    return os;
 }

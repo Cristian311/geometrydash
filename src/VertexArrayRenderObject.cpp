@@ -1,4 +1,5 @@
 #include "VertexArrayRenderObject.h"
+#include <ostream>
 
 VertexArrayRenderObject::VertexArrayRenderObject(
     sf::PrimitiveType primitiveType,
@@ -12,4 +13,15 @@ VertexArrayRenderObject::VertexArrayRenderObject(
 void VertexArrayRenderObject::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
     target.draw(vertexArray, states);
+}
+
+std::size_t VertexArrayRenderObject::getVertexCount() const {
+    return vertexArray.getVertexCount();
+}
+
+std::ostream& operator<<(std::ostream& os, const VertexArrayRenderObject& object) {
+    os << "VertexArrayRenderObject{"
+       << static_cast<const RenderObject&>(object)
+       << "vertices: " << object.getVertexCount() << "}";
+    return os;
 }

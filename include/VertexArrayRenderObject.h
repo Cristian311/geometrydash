@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ostream>
 #include <SFML/Graphics.hpp>
 #include <RenderObject.h>
 #include <vector>
@@ -12,4 +13,6 @@ private:
 
 public:
     VertexArrayRenderObject(sf::PrimitiveType primitiveType, const std::vector<sf::Vertex>& vertices);
+    std::size_t getVertexCount() const;
+    friend std::ostream& operator<<(std::ostream& os, const VertexArrayRenderObject& object);
 };
